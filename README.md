@@ -8,3 +8,5 @@ https://freeasteroids.org/
 I hope to add this game to an arcade of games created with:
 https://github.com/tsv-stacks
 https://github.com/tonymm55
+
+current testing done with npx http-server when in root directory
