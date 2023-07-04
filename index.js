@@ -16,4 +16,4 @@ const player = new Player({
   velocity: { x: 0, y: 0 },
 });
 
-console.log(player);
+player.update();
