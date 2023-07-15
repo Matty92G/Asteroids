@@ -1,5 +1,6 @@
 import { gameVar } from './gameVar.js';
 import { Player } from './Player.js';
+import { Projectile } from './Projectile.js';
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -37,6 +38,9 @@ const keys = {
 const SPEED = 3;
 const ROTATIONAL_SPEED = 0.05;
 const FRICTION = 0.99;
+const PROJECTILE_SPEED = 2;
+
+const projectiles = [];
 
 function animate() {
   window.requestAnimationFrame(animate);
@@ -44,7 +48,25 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   player.update();
-  if (keys.shift.pressed && keys.w.pressed) {
+
+  for (let i = projectiles.length - 1; i >= 0; i--) {
+    const projectile = projectiles[i];
+    projectile.update();
+
+    if (
+      projectiles.position.x + projectiles.radius < 0 ||
+      projectiles.position.x - projectiles.radius > canvas.width ||
+      projectiles.position.y - projectiles.radius > canvas.height ||
+      projectiles.position.y + projectiles.radius < 0
+    ) {
+      projectiles.splice(i, 1);
+    }
+  }
+
+  if (keys.s.pressed && keys.w.pressed) {
+    player.velocity.x = Math.cos(player.rotation) * SPEED * 0.8;
+    player.velocity.y = Math.sin(player.rotation) * SPEED * 0.8;
+  } else if (keys.shift.pressed && keys.w.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED * 1.5;
     player.velocity.y = Math.sin(player.rotation) * SPEED * 1.5;
   } else if (keys.w.pressed) {
@@ -83,6 +105,20 @@ window.addEventListener('keydown', (event) => {
       break;
     case 'ShiftLeft':
       keys.shift.pressed = true;
+      break;
+    case 'Space':
+      projectiles.push(
+        new Projectile({
+          position: {
+            x: player.position.x + Math.cos(player.rotation) * 30,
+            y: player.position.y + Math.sin(player.rotation) * 30,
+          },
+          velocity: {
+            x: Math.cos(player.rotation) * PROJECTILE_SPEED,
+            y: Math.sin(player.rotation) * PROJECTILE_SPEED,
+          },
+        })
+      );
       break;
   }
 });
