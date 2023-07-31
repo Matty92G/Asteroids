@@ -1,0 +1,23 @@
+{
+  "name": "asteroids",
+  "version": "1.0.0",
+  "description": "Asteroids Game made in a Canvas with JavaScript",
+  "main": "indes.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matty92G/Asteroids.git"
+  },
+  "keywords": [
+    "Asteroids",
+    "Game"
+  ],
+  "author": "Matthew Giles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matty92G/Asteroids/issues"
+  },
+  "homepage": "https://github.com/Matty92G/Asteroids#readme"
+}
