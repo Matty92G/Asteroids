@@ -140,6 +140,9 @@ window.addEventListener('keyup', (event) => {
     case 'ShiftLeft':
       keys.shift.pressed = false;
       break;
+    case 'Space':
+      keys.shift.pressed = false;
+      break;
   }
 });
 
