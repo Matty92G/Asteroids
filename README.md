@@ -10,3 +10,5 @@ https://github.com/tsv-stacks
 https://github.com/tonymm55
 
 current testing done with npx http-server when in root directory
+
+Deployed on Netlify: https://matty92g-asteroids.netlify.app/
