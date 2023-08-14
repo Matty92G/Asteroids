@@ -54,10 +54,10 @@ function animate() {
     projectile.update();
 
     if (
-      projectiles.position.x + projectiles.radius < 0 ||
-      projectiles.position.x - projectiles.radius > canvas.width ||
-      projectiles.position.y - projectiles.radius > canvas.height ||
-      projectiles.position.y + projectiles.radius < 0
+      projectile.position.x + projectile.radius < 0 ||
+      projectile.position.x - projectile.radius > canvas.width ||
+      projectile.position.y - projectile.radius > canvas.height ||
+      projectile.position.y + projectile.radius < 0
     ) {
       projectiles.splice(i, 1);
     }
