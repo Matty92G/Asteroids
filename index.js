@@ -1,6 +1,7 @@
 import { gameVar } from './gameVar.js';
 import { Player } from './Player.js';
 import { Projectile } from './Projectile.js';
+import { Asteroid } from './Asteroid.js';
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -41,6 +42,80 @@ const FRICTION = 0.99;
 const PROJECTILE_SPEED = 2;
 
 const projectiles = [];
+const asteroids = [];
+
+const intervalId = window.setInterval(() => {
+  const index = Math.floor(Math.random() * 8);
+  let x, y;
+  let vx, vy;
+  let radius = 50 * Math.floor(Math.random()) + 10;
+
+  switch (index) {
+    case 0:
+      x = 0 - radius;
+      y = (Math.random() * canvas.height) / 2;
+      vx = 1;
+      vy = 0.5;
+      break;
+    case 1:
+      x = (Math.random() * canvas.width) / 2;
+      y = canvas.height + radius;
+      vx = 0.5;
+      vy = -1;
+      break;
+    case 2:
+      x = canvas.width + radius;
+      y = (Math.random() * canvas.height) / 2;
+      vx = -1;
+      vy = 0.5;
+      break;
+    case 3:
+      x = (Math.random() * canvas.width) / 2;
+      y = 0 - radius;
+      vx = 0.5;
+      vy = 1;
+      break;
+    case 4:
+      x = 0 - radius;
+      y = canvas.height + radius;
+      vx = 1;
+      vy = -1;
+      break;
+    case 5:
+      x = canvas.width + radius;
+      y = canvas.height + radius;
+      vx = -1;
+      vy = -1;
+      break;
+    case 6:
+      x = canvas.width + radius;
+      y = 0 - radius;
+      vx = -1;
+      vy = 1;
+      break;
+    case 7:
+      x = 0 - radius;
+      y = 0 - radius;
+      vx = 1;
+      vy = 1;
+      break;
+  }
+
+  asteroids.push(
+    new Asteroid({
+      position: {
+        x: x,
+        y: y,
+      },
+      velocity: {
+        x: vx,
+        y: vy,
+      },
+      radius,
+    })
+  );
+  console.log(asteroids);
+}, gameVar.asteroid.gameSpeed);
 
 function animate() {
   window.requestAnimationFrame(animate);
@@ -60,6 +135,19 @@ function animate() {
       projectile.position.y + projectile.radius < 0
     ) {
       projectiles.splice(i, 1);
+    }
+  }
+
+  for (let i = asteroids.length - 1; i >= 0; i--) {
+    const asteroid = asteroids[i];
+    asteroid.update();
+    if (
+      asteroid.position.x + asteroid.radius < 0 ||
+      asteroid.position.x - asteroid.radius > canvas.width ||
+      asteroid.position.y - asteroid.radius > canvas.height ||
+      asteroid.position.y + asteroid.radius < 0
+    ) {
+      asteroids.splice(i, 1);
     }
   }
 
