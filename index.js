@@ -151,7 +151,15 @@ function animate() {
     }
   }
 
-  if (keys.s.pressed && keys.w.pressed) {
+  if (player.position.x > canvas.width + 10) {
+    player.position.x = -10;
+  } else if (player.position.y > canvas.height + 10) {
+    player.position.y = -10;
+  } else if (player.position.x < -10) {
+    player.position.x = canvas.width + 10;
+  } else if (player.position.y < -10) {
+    player.position.y = canvas.height + 10;
+  } else if (keys.s.pressed && keys.w.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED * 0.8;
     player.velocity.y = Math.sin(player.rotation) * SPEED * 0.8;
   } else if (keys.shift.pressed && keys.w.pressed) {
