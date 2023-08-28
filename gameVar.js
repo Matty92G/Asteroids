@@ -6,6 +6,6 @@ export const gameVar = {
     projectile: { speed: 3, rate: 1, max: 5 },
   },
   asteroid: {
-    gameSpeed: 3000,
+    gameSpeed: 6000,
   },
 };
