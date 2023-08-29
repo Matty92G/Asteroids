@@ -117,6 +117,19 @@ const intervalId = window.setInterval(() => {
   console.log(asteroids);
 }, gameVar.asteroid.gameSpeed);
 
+function circleCollision(circle1, circle2) {
+  const xDifference = circle2.position.x - circle1.position.x;
+  const yDifference = circle2.position.y - circle1.position.y;
+  const distance = Math.sqrt(
+    xDifference * xDifference + yDifference * yDifference
+  );
+  if (distance <= circle1.radius + circle2.radius) {
+    console.log('Collision');
+    return true;
+  }
+  return false;
+}
+
 function animate() {
   window.requestAnimationFrame(animate);
   ctx.fillStyle = gameVar.backgroundColour;
@@ -141,14 +154,6 @@ function animate() {
   for (let i = asteroids.length - 1; i >= 0; i--) {
     const asteroid = asteroids[i];
     asteroid.update();
-    //   if (
-    //     asteroid.position.x + asteroid.radius < 0 ||
-    //     asteroid.position.x - asteroid.radius > canvas.width ||
-    //     asteroid.position.y - asteroid.radius > canvas.height ||
-    //     asteroid.position.y + asteroid.radius < 0
-    //   ) {
-    //     asteroids.splice(i, 1);
-    //   }
 
     if (asteroid.position.x < -10) {
       asteroid.position.x = canvas.width + 10;
@@ -158,6 +163,15 @@ function animate() {
       asteroid.position.y = -10;
     } else if (asteroid.position.x > canvas.width + 10) {
       asteroid.position.x = -10;
+    }
+
+    for (let j = projectiles.length - 1; j >= 0; j--) {
+      const projectile = projectiles[j];
+      if (circleCollision(asteroid, projectile)) {
+        console.log('HIT');
+        asteroids.splice(i, 1);
+        projectiles.splice(j, 1);
+      }
     }
   }
 
