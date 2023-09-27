@@ -270,6 +270,6 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
-window.addEventListener('keydown', (event) => {
-  console.log(event);
-});
+// window.addEventListener('keydown', (event) => {
+//   console.log(event);
+// });
