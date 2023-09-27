@@ -48,7 +48,7 @@ const intervalId = window.setInterval(() => {
   const index = Math.floor(Math.random() * 8);
   let x, y;
   let vx, vy;
-  let radius = 50 * Math.floor(Math.random()) + 10;
+  let radius = 50 * Math.random() + 10;
 
   switch (index) {
     case 0:
@@ -155,14 +155,14 @@ function animate() {
     const asteroid = asteroids[i];
     asteroid.update();
 
-    if (asteroid.position.x < -10) {
-      asteroid.position.x = canvas.width + 10;
-    } else if (asteroid.position.y < -10) {
-      asteroid.position.y = canvas.height + 10;
-    } else if (asteroid.position.y > canvas.height + 10) {
-      asteroid.position.y = -10;
-    } else if (asteroid.position.x > canvas.width + 10) {
-      asteroid.position.x = -10;
+    if (asteroid.position.x < -asteroid.radius) {
+      asteroid.position.x = canvas.width + asteroid.radius;
+    } else if (asteroid.position.y < -asteroid.radius) {
+      asteroid.position.y = canvas.height + asteroid.radius;
+    } else if (asteroid.position.y > canvas.height + asteroid.radius) {
+      asteroid.position.y = -asteroid.radius;
+    } else if (asteroid.position.x > canvas.width + asteroid.radius) {
+      asteroid.position.x = -asteroid.radius;
     }
 
     for (let j = projectiles.length - 1; j >= 0; j--) {
