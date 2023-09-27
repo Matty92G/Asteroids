@@ -14,6 +14,7 @@ ctx.fillStyle = gameVar.backgroundColour;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 let score = 0;
+let gameOver = false;
 
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
@@ -204,6 +205,11 @@ function animate() {
       console.log('game over');
       window.cancelAnimationFrame(animationID);
       clearInterval(intervalId);
+      gameOver = true;
+      // window.parent.postMessage(
+      //   JSON.stringify({ asteroidScore: score }),
+      //   "https://arcade-game-room.netlify.app"
+      // );
     }
 
     if (asteroid.position.x < -asteroid.radius) {
