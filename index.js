@@ -176,7 +176,7 @@ function isPointOnLineSegment(x, y, start, end) {
 }
 
 function animate() {
-  window.requestAnimationFrame(animate);
+  const animationID = window.requestAnimationFrame(animate);
   ctx.fillStyle = gameVar.backgroundColour;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -202,6 +202,7 @@ function animate() {
 
     if (circleTriangleCollision(asteroid, player.getVertices())) {
       console.log('game over');
+      window.cancelAnimationFrame(animationID);
     }
 
     if (asteroid.position.x < -asteroid.radius) {
