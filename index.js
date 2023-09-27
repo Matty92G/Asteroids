@@ -203,6 +203,7 @@ function animate() {
     if (circleTriangleCollision(asteroid, player.getVertices())) {
       console.log('game over');
       window.cancelAnimationFrame(animationID);
+      clearInterval(intervalId);
     }
 
     if (asteroid.position.x < -asteroid.radius) {
