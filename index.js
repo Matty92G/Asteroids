@@ -166,6 +166,15 @@ function circleTriangleCollision(circle, triangle) {
   return false;
 }
 
+function isPointOnLineSegment(x, y, start, end) {
+  return (
+    x >= Math.min(start.x, end.x) &&
+    x <= Math.max(start.x, end.x) &&
+    y >= Math.min(start.y, end.y) &&
+    y <= Math.max(start.y, end.y)
+  );
+}
+
 function animate() {
   window.requestAnimationFrame(animate);
   ctx.fillStyle = gameVar.backgroundColour;
