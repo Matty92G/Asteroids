@@ -50,7 +50,7 @@ const intervalId = window.setInterval(() => {
   const index = Math.floor(Math.random() * 8);
   let x, y;
   let vx, vy;
-  let radius = 50 * Math.random() + 10;
+  let radius = Math.floor(50 * Math.random() + 10);
 
   switch (index) {
     case 0:
@@ -171,9 +171,12 @@ function animate() {
       const projectile = projectiles[j];
       if (circleCollision(asteroid, projectile)) {
         console.log('HIT');
-        asteroids.splice(i, 1);
         projectiles.splice(j, 1);
-        score += 1;
+        console.log(asteroids[i].radius);
+        console.log(asteroids[i].position);
+        console.log(asteroids[i].velocity);
+        score += asteroids[i].radius;
+        asteroids.splice(i, 1);
         console.log(score);
       }
     }
