@@ -13,6 +13,8 @@ canvas.height = gameVar.canvasSize.height;
 ctx.fillStyle = gameVar.backgroundColour;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+let score = 0;
+
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
@@ -171,6 +173,8 @@ function animate() {
         console.log('HIT');
         asteroids.splice(i, 1);
         projectiles.splice(j, 1);
+        score += 1;
+        console.log(score);
       }
     }
   }
