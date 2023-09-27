@@ -50,7 +50,7 @@ const intervalId = window.setInterval(() => {
   const index = Math.floor(Math.random() * 8);
   let x, y;
   let vx, vy;
-  let radius = Math.floor(50 * Math.random() + 10);
+  let radius = Math.floor(50 * Math.random() + 10 + score / 100);
 
   switch (index) {
     case 0:
@@ -176,7 +176,29 @@ function animate() {
         console.log(asteroids[i].position);
         console.log(asteroids[i].velocity);
         score += asteroids[i].radius;
-        asteroids.splice(i, 1);
+        if (asteroids[i].radius > 20) {
+          asteroids.push(
+            new Asteroid({
+              position: {
+                x: asteroids[i].position.x,
+                y: asteroids[i].position.y,
+              },
+              velocity: {
+                x: asteroids[i].velocity.x,
+                y: asteroids[i].velocity.y,
+              },
+              radius: Math.floor(asteroids[i].radius / 2),
+            })
+          );
+        }
+        asteroids[i].velocity.x =
+          -asteroids[i].velocity.x * (Math.random() + 1);
+        asteroids[i].velocity.y =
+          -asteroids[i].velocity.y * (Math.random() + 1);
+        asteroids[i].radius -= Math.floor(asteroids[i].radius / 2);
+        if (asteroids[i].radius < 10) {
+          asteroids.splice(i, 1);
+        }
         console.log(score);
       }
     }
