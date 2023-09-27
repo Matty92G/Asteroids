@@ -200,6 +200,10 @@ function animate() {
     const asteroid = asteroids[i];
     asteroid.update();
 
+    if (circleTriangleCollision(asteroid, player.getVertices())) {
+      console.log('game over');
+    }
+
     if (asteroid.position.x < -asteroid.radius) {
       asteroid.position.x = canvas.width + asteroid.radius;
     } else if (asteroid.position.y < -asteroid.radius) {
