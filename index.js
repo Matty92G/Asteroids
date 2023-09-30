@@ -1,7 +1,7 @@
-import { gameVar } from './gameVar.js';
-import { Player } from './Player.js';
-import { Projectile } from './Projectile.js';
-import { Asteroid } from './Asteroid.js';
+import { gameVar } from './src/gameVar.js';
+import { Player } from './src/Player.js';
+import { Projectile } from './src/Projectile.js';
+import { Asteroid } from './src/Asteroid.js';
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -39,10 +39,10 @@ const keys = {
   },
 };
 
-const SPEED = 3;
-const ROTATIONAL_SPEED = 0.05;
-const FRICTION = 0.99;
-const PROJECTILE_SPEED = 2;
+const SPEED = gameVar.player.movement.max;
+const ROTATIONAL_SPEED = gameVar.player.movement.rotate;
+const FRICTION = gameVar.player.movement.friction;
+const PROJECTILE_SPEED = gameVar.player.projectile.speed;
 
 const projectiles = [];
 const asteroids = [];
