@@ -208,8 +208,8 @@ function animate() {
       gameOver = true;
       window.parent.postMessage(
         JSON.stringify({ asteroidsScore: score }),
-        // 'https://arcade-game-room.netlify.app'
-        'http://localhost:5173/'
+        'https://arcade-game-room.netlify.app'
+        // 'http://localhost:5173/'
       );
     }
 
