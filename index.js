@@ -206,10 +206,10 @@ function animate() {
       window.cancelAnimationFrame(animationID);
       clearInterval(intervalId);
       gameOver = true;
-      // window.parent.postMessage(
-      //   JSON.stringify({ asteroidScore: score }),
-      //   "https://arcade-game-room.netlify.app"
-      // );
+      window.parent.postMessage(
+        JSON.stringify({ asteroidScore: score }),
+        'https://arcade-game-room.netlify.app'
+      );
     }
 
     if (asteroid.position.x < -asteroid.radius) {
