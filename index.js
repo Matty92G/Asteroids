@@ -207,7 +207,7 @@ function animate() {
       clearInterval(intervalId);
       gameOver = true;
       window.parent.postMessage(
-        JSON.stringify({ asteroidScore: score }),
+        JSON.stringify({ asteroidsScore: score }),
         'https://arcade-game-room.netlify.app'
       );
     }
