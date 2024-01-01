@@ -203,15 +203,15 @@ function animate() {
 
     if (circleTriangleCollision(asteroid, player.getVertices())) {
       console.log('game over');
-
+      gameOver = true;
       window.parent.postMessage(
         JSON.stringify({ asteroidsScore: score }),
         // 'https://arcade-game-room.netlify.app'
-        'http://localhost:5173/'
+        // 'http://127.0.0.1:5173/'
+        '*'
       );
       window.cancelAnimationFrame(animationID);
       clearInterval(intervalId);
-      gameOver = true;
     }
 
     if (asteroid.position.x < -asteroid.radius) {
