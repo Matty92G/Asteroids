@@ -37,6 +37,9 @@ const keys = {
   shift: {
     pressed: false,
   },
+  space: {
+    pressed: false,
+  },
 };
 
 const SPEED = gameVar.player.movement.max;
@@ -347,7 +350,7 @@ window.addEventListener('keyup', (event) => {
       keys.shift.pressed = false;
       break;
     case 'Space':
-      keys.shift.pressed = false;
+      keys.space.pressed = false;
       break;
   }
 });
