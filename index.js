@@ -294,6 +294,21 @@ function animate() {
   } else if (keys.a.pressed) {
     player.rotation -= ROTATIONAL_SPEED;
   }
+
+  if (keys.space.pressed) {
+    projectiles.push(
+      new Projectile({
+        position: {
+          x: player.position.x + Math.cos(player.rotation) * 30,
+          y: player.position.y + Math.sin(player.rotation) * 30,
+        },
+        velocity: {
+          x: Math.cos(player.rotation) * PROJECTILE_SPEED,
+          y: Math.sin(player.rotation) * PROJECTILE_SPEED,
+        },
+      })
+    );
+  }
 }
 
 animate();
@@ -316,18 +331,7 @@ window.addEventListener('keydown', (event) => {
       keys.shift.pressed = true;
       break;
     case 'Space':
-      projectiles.push(
-        new Projectile({
-          position: {
-            x: player.position.x + Math.cos(player.rotation) * 30,
-            y: player.position.y + Math.sin(player.rotation) * 30,
-          },
-          velocity: {
-            x: Math.cos(player.rotation) * PROJECTILE_SPEED,
-            y: Math.sin(player.rotation) * PROJECTILE_SPEED,
-          },
-        })
-      );
+      keys.space.pressed = true;
       break;
   }
 });
