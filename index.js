@@ -46,6 +46,7 @@ const SPEED = gameVar.player.movement.max;
 const ROTATIONAL_SPEED = gameVar.player.movement.rotate;
 const FRICTION = gameVar.player.movement.friction;
 const PROJECTILE_SPEED = gameVar.player.projectile.speed;
+const PROJECTILE_RATE = gameVar.player.projectile.rate;
 
 const projectiles = [];
 const asteroids = [];
@@ -355,6 +356,7 @@ window.addEventListener('keyup', (event) => {
       break;
     case 'Space':
       keys.space.pressed = false;
+      console.log('Space Key Lifted');
       break;
   }
 });
