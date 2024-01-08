@@ -47,6 +47,14 @@ const ROTATIONAL_SPEED = gameVar.player.movement.rotate;
 const FRICTION = gameVar.player.movement.friction;
 const PROJECTILE_SPEED = gameVar.player.projectile.speed;
 const PROJECTILE_RATE = gameVar.player.projectile.rate;
+const PROJECTILE_MAX = gameVar.player.projectile.max;
+
+let Bullets = {
+  speed: PROJECTILE_SPEED,
+  rate: PROJECTILE_RATE,
+  max: PROJECTILE_MAX,
+  conter: 0,
+};
 
 const projectiles = [];
 const asteroids = [];
@@ -297,18 +305,21 @@ function animate() {
   }
 
   if (keys.space.pressed) {
-    projectiles.push(
-      new Projectile({
-        position: {
-          x: player.position.x + Math.cos(player.rotation) * 30,
-          y: player.position.y + Math.sin(player.rotation) * 30,
-        },
-        velocity: {
-          x: Math.cos(player.rotation) * PROJECTILE_SPEED,
-          y: Math.sin(player.rotation) * PROJECTILE_SPEED,
-        },
-      })
-    );
+    Bullets.conter++;
+    if (Bullets.conter <= Bullets.max) {
+      projectiles.push(
+        new Projectile({
+          position: {
+            x: player.position.x + Math.cos(player.rotation) * 30,
+            y: player.position.y + Math.sin(player.rotation) * 30,
+          },
+          velocity: {
+            x: Math.cos(player.rotation) * PROJECTILE_SPEED,
+            y: Math.sin(player.rotation) * PROJECTILE_SPEED,
+          },
+        })
+      );
+    }
   }
 }
 
@@ -356,7 +367,9 @@ window.addEventListener('keyup', (event) => {
       break;
     case 'Space':
       keys.space.pressed = false;
-      console.log('Space Key Lifted');
+      Bullets.conter = 0;
+      Bullets.max = PROJECTILE_MAX + Math.floor(score / 1000);
+      console.log('Bullets:', Bullets.max);
       break;
   }
 });
