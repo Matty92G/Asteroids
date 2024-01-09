@@ -54,6 +54,7 @@ let Bullets = {
   rate: PROJECTILE_RATE,
   max: PROJECTILE_MAX,
   conter: 0,
+  cooldown: PROJECTILE_RATE - 1,
 };
 
 const projectiles = [];
@@ -307,18 +308,23 @@ function animate() {
   if (keys.space.pressed) {
     Bullets.conter++;
     if (Bullets.conter <= Bullets.max) {
-      projectiles.push(
-        new Projectile({
-          position: {
-            x: player.position.x + Math.cos(player.rotation) * 30,
-            y: player.position.y + Math.sin(player.rotation) * 30,
-          },
-          velocity: {
-            x: Math.cos(player.rotation) * PROJECTILE_SPEED,
-            y: Math.sin(player.rotation) * PROJECTILE_SPEED,
-          },
-        })
-      );
+      Bullets.cooldown++;
+      if (Bullets.cooldown % Bullets.rate === 0) {
+        projectiles.push(
+          new Projectile({
+            position: {
+              x: player.position.x + Math.cos(player.rotation) * 30,
+              y: player.position.y + Math.sin(player.rotation) * 30,
+            },
+            velocity: {
+              x: Math.cos(player.rotation) * PROJECTILE_SPEED,
+              y: Math.sin(player.rotation) * PROJECTILE_SPEED,
+            },
+          })
+        );
+      } else {
+        Bullets.conter--;
+      }
     }
   }
 }
@@ -368,6 +374,7 @@ window.addEventListener('keyup', (event) => {
     case 'Space':
       keys.space.pressed = false;
       Bullets.conter = 0;
+      Bullets.cooldown = PROJECTILE_RATE - 1;
       Bullets.max = PROJECTILE_MAX + Math.floor(score / 1000);
       console.log('Bullets:', Bullets.max);
       break;
