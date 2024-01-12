@@ -22,22 +22,22 @@ const player = new Player({
 });
 
 const keys = {
-  w: {
+  fwd: {
     pressed: false,
   },
-  a: {
+  left: {
     pressed: false,
   },
-  d: {
+  right: {
     pressed: false,
   },
-  s: {
+  slowDown: {
     pressed: false,
   },
-  shift: {
+  speedUp: {
     pressed: false,
   },
-  space: {
+  shoot: {
     pressed: false,
   },
 };
@@ -282,30 +282,30 @@ function animate() {
     player.position.x = canvas.width + 10;
   } else if (player.position.y < -10) {
     player.position.y = canvas.height + 10;
-  } else if (keys.s.pressed && keys.w.pressed) {
+  } else if (keys.slowDown.pressed && keys.fwd.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED * 0.8;
     player.velocity.y = Math.sin(player.rotation) * SPEED * 0.8;
-  } else if (keys.shift.pressed && keys.w.pressed) {
+  } else if (keys.speedUp.pressed && keys.fwd.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED * 1.5;
     player.velocity.y = Math.sin(player.rotation) * SPEED * 1.5;
-  } else if (keys.w.pressed) {
+  } else if (keys.fwd.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED;
     player.velocity.y = Math.sin(player.rotation) * SPEED;
-  } else if (!keys.w.pressed && keys.s.pressed) {
+  } else if (!keys.fwd.pressed && keys.slowDown.pressed) {
     player.velocity.x *= FRICTION / 1.05;
     player.velocity.y *= FRICTION / 1.05;
-  } else if (!keys.w.pressed) {
+  } else if (!keys.fwd.pressed) {
     player.velocity.x *= FRICTION;
     player.velocity.y *= FRICTION;
   }
 
-  if (keys.d.pressed) {
+  if (keys.right.pressed) {
     player.rotation += ROTATIONAL_SPEED;
-  } else if (keys.a.pressed) {
+  } else if (keys.left.pressed) {
     player.rotation -= ROTATIONAL_SPEED;
   }
 
-  if (keys.space.pressed) {
+  if (keys.shoot.pressed) {
     Bullets.conter++;
     if (Bullets.conter <= Bullets.max) {
       Bullets.cooldown++;
@@ -335,26 +335,26 @@ window.addEventListener('keydown', (event) => {
   switch (event.code) {
     case 'KeyW':
     case 'ArrowUp':
-      keys.w.pressed = true;
+      keys.fwd.pressed = true;
       break;
     case 'KeyA':
     case 'ArrowLeft':
-      keys.a.pressed = true;
+      keys.left.pressed = true;
       break;
     case 'KeyD':
     case 'ArrowRight':
-      keys.d.pressed = true;
+      keys.right.pressed = true;
       break;
     case 'KeyS':
     case 'ArrowDown':
-      keys.s.pressed = true;
+      keys.slowDown.pressed = true;
       break;
     case 'ShiftLeft':
     case 'ShiftRight':
-      keys.shift.pressed = true;
+      keys.speedUp.pressed = true;
       break;
     case 'Space':
-      keys.space.pressed = true;
+      keys.shoot.pressed = true;
       break;
   }
 });
@@ -363,26 +363,26 @@ window.addEventListener('keyup', (event) => {
   switch (event.code) {
     case 'KeyW':
     case 'ArrowUp':
-      keys.w.pressed = false;
+      keys.fwd.pressed = false;
       break;
     case 'KeyA':
     case 'ArrowLeft':
-      keys.a.pressed = false;
+      keys.left.pressed = false;
       break;
     case 'KeyD':
     case 'ArrowRight':
-      keys.d.pressed = false;
+      keys.right.pressed = false;
       break;
     case 'KeyS':
     case 'ArrowDown':
-      keys.s.pressed = false;
+      keys.slowDown.pressed = false;
       break;
     case 'ShiftLeft':
     case 'ShiftRight':
-      keys.shift.pressed = false;
+      keys.speedUp.pressed = false;
       break;
     case 'Space':
-      keys.space.pressed = false;
+      keys.shoot.pressed = false;
       Bullets.conter = 0;
       Bullets.cooldown = PROJECTILE_RATE + Math.floor(score / 500) - 1;
       Bullets.max = PROJECTILE_MAX + Math.floor(score / 1000);
