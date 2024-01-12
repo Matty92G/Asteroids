@@ -384,9 +384,10 @@ window.addEventListener('keyup', (event) => {
     case 'Space':
       keys.space.pressed = false;
       Bullets.conter = 0;
-      Bullets.cooldown = PROJECTILE_RATE - 1;
+      Bullets.cooldown = PROJECTILE_RATE + Math.floor(score / 500) - 1;
       Bullets.max = PROJECTILE_MAX + Math.floor(score / 1000);
       console.log('Bullets:', Bullets.max);
+      console.log('Rate:', Bullets.cooldown);
       break;
   }
 });
