@@ -16,6 +16,28 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 let score = 0;
 let gameOver = false;
 
+const scoreN = document.getElementById('score-n');
+
+// const startBtn = document.getElementById('start-btn');
+// const restartBtn = document.getElementById('restart-btn');
+// const infoscreen = document.getElementById('infoscreen');
+// const infoscreenContainer = document.getElementById('infoscreen-Container');
+
+// function startGame() {
+//   startBtn.style.display = 'none';
+//   infoscreen.style.display = 'none';
+//   infoscreenContainer.style.display = 'none';
+//   // animate(0);
+// }
+
+// function restartGame() {
+//   // restartBtn.style.display = 'none';
+//   // animate(0);
+// }
+
+// startBtn.addEventListener('click', startGame);
+// restartBtn.addEventListener('click', restartGame);
+
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
@@ -64,7 +86,9 @@ const intervalId = window.setInterval(() => {
   const index = Math.floor(Math.random() * 8);
   let x, y;
   let vx, vy;
-  let radius = Math.floor(50 * Math.random() + 10 + score / 100);
+  let radius = Math.floor(
+    50 * Math.random() + gameVar.asteroid.size + score / 100
+  );
 
   switch (index) {
     case 0:
@@ -246,6 +270,7 @@ function animate() {
         console.log(asteroids[i].position);
         console.log(asteroids[i].velocity);
         score += asteroids[i].radius;
+        scoreN.innerHTML = score;
         if (asteroids[i].radius > 20) {
           asteroids.push(
             new Asteroid({
@@ -384,8 +409,8 @@ window.addEventListener('keyup', (event) => {
     case 'Space':
       keys.shoot.pressed = false;
       Bullets.conter = 0;
-      Bullets.cooldown = PROJECTILE_RATE + Math.floor(score / 500) - 1;
-      Bullets.max = PROJECTILE_MAX + Math.floor(score / 1000);
+      Bullets.cooldown = PROJECTILE_RATE + Math.floor(score / 90) - 1;
+      Bullets.max = PROJECTILE_MAX + Math.floor(score / 100);
       console.log('Bullets:', Bullets.max);
       console.log('Rate:', Bullets.cooldown);
       break;
