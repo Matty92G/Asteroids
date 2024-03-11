@@ -17,6 +17,9 @@ let score = 0;
 let gameOver = false;
 
 const scoreN = document.getElementById('score-n');
+const fireRateN = document.getElementById('fire-rate-n');
+const BulletN = document.getElementById('bullet-n');
+const BulletSpeedN = document.getElementById('bullet-speed-n');
 
 // const startBtn = document.getElementById('start-btn');
 // const restartBtn = document.getElementById('restart-btn');
@@ -270,7 +273,6 @@ function animate() {
         console.log(asteroids[i].position);
         console.log(asteroids[i].velocity);
         score += asteroids[i].radius;
-        scoreN.innerHTML = score;
         if (asteroids[i].radius > 20) {
           asteroids.push(
             new Asteroid({
@@ -294,7 +296,6 @@ function animate() {
         if (asteroids[i].radius < 10) {
           asteroids.splice(i, 1);
         }
-        console.log(score);
       }
     }
   }
@@ -342,8 +343,8 @@ function animate() {
               y: player.position.y + Math.sin(player.rotation) * 30,
             },
             velocity: {
-              x: Math.cos(player.rotation) * PROJECTILE_SPEED,
-              y: Math.sin(player.rotation) * PROJECTILE_SPEED,
+              x: Math.cos(player.rotation) * Bullets.speed,
+              y: Math.sin(player.rotation) * Bullets.speed,
             },
           })
         );
@@ -351,6 +352,10 @@ function animate() {
         Bullets.conter--;
       }
     }
+    scoreN.innerHTML = score;
+    BulletN.innerHTML = Bullets.max;
+    fireRateN.innerHTML = Bullets.rate;
+    BulletSpeedN.innerHTML = Bullets.speed;
   }
 }
 
@@ -409,13 +414,21 @@ window.addEventListener('keyup', (event) => {
     case 'Space':
       keys.shoot.pressed = false;
       Bullets.conter = 0;
-      Bullets.cooldown = PROJECTILE_RATE + Math.floor(score / 90) - 1;
-      Bullets.max = PROJECTILE_MAX + Math.floor(score / 100);
-      console.log('Bullets:', Bullets.max);
-      console.log('Rate:', Bullets.cooldown);
+      if (Bullets.rate < 1) {
+        Bullets.rate = 1;
+      } else if (Bullets.rate > 1) {
+        Bullets.rate = PROJECTILE_RATE - Math.floor(score / 750);
+      }
+      Bullets.max = PROJECTILE_MAX + Math.floor(score / 500);
+      Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 1000) / 2;
       break;
   }
 });
+
+scoreN.innerHTML = score;
+BulletN.innerHTML = Bullets.max;
+fireRateN.innerHTML = Bullets.rate;
+BulletSpeedN.innerHTML = Bullets.speed;
 
 // window.addEventListener('keydown', (event) => {
 //   console.log(event);
