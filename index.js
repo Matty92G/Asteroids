@@ -200,7 +200,7 @@ function circleTriangleCollision(circle, triangle) {
 
     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance <= circle.radius) {
+    if (distance <= circle.radius / 1.05) {
       return true;
     }
   }
@@ -309,8 +309,8 @@ function animate() {
   } else if (player.position.y < -10) {
     player.position.y = canvas.height + 10;
   } else if (keys.slowDown.pressed && keys.fwd.pressed) {
-    player.velocity.x = Math.cos(player.rotation) * SPEED * 0.8;
-    player.velocity.y = Math.sin(player.rotation) * SPEED * 0.8;
+    player.velocity.x = Math.cos(player.rotation) * SPEED * 0.65;
+    player.velocity.y = Math.sin(player.rotation) * SPEED * 0.65;
   } else if (keys.speedUp.pressed && keys.fwd.pressed) {
     player.velocity.x = Math.cos(player.rotation) * SPEED * 1.5;
     player.velocity.y = Math.sin(player.rotation) * SPEED * 1.5;
@@ -324,8 +324,11 @@ function animate() {
     player.velocity.x *= FRICTION;
     player.velocity.y *= FRICTION;
   }
-
-  if (keys.right.pressed) {
+  if (keys.slowDown.pressed && keys.right.pressed) {
+    player.rotation += ROTATIONAL_SPEED * 0.7;
+  } else if (keys.slowDown.pressed && keys.left.pressed) {
+    player.rotation -= ROTATIONAL_SPEED * 0.7;
+  } else if (keys.right.pressed) {
     player.rotation += ROTATIONAL_SPEED;
   } else if (keys.left.pressed) {
     player.rotation -= ROTATIONAL_SPEED;
@@ -355,7 +358,7 @@ function animate() {
     scoreN.innerHTML = score;
     BulletN.innerHTML = Bullets.max;
     fireRateN.innerHTML = Bullets.rate;
-    BulletSpeedN.innerHTML = Bullets.speed;
+    BulletSpeedN.innerHTML = Bullets.speed * 10;
   }
 }
 
@@ -420,7 +423,7 @@ window.addEventListener('keyup', (event) => {
         Bullets.rate = PROJECTILE_RATE - Math.floor(score / 750);
       }
       Bullets.max = PROJECTILE_MAX + Math.floor(score / 500);
-      Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 1000) / 2;
+      Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 125) / 10;
       break;
   }
 });
@@ -428,7 +431,7 @@ window.addEventListener('keyup', (event) => {
 scoreN.innerHTML = score;
 BulletN.innerHTML = Bullets.max;
 fireRateN.innerHTML = Bullets.rate;
-BulletSpeedN.innerHTML = Bullets.speed;
+BulletSpeedN.innerHTML = Bullets.speed * 10;
 
 // window.addEventListener('keydown', (event) => {
 //   console.log(event);
