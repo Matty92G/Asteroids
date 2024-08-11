@@ -428,6 +428,31 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
+window.addEventListener('touchstart', (event) => {
+  keys.shoot.pressed = true;
+});
+
+window.addEventListener('touchmove', (event) => {
+  console.log(
+    'X',
+    event.changedTouches[0].clientX,
+    'Y',
+    event.changedTouches[0].clientY
+  );
+});
+
+window.addEventListener('touchend', (event) => {
+  keys.shoot.pressed = false;
+  Bullets.conter = 0;
+  if (Bullets.rate < 1) {
+    Bullets.rate = 1;
+  } else if (Bullets.rate > 1) {
+    Bullets.rate = PROJECTILE_RATE - Math.floor(score / 750);
+  }
+  Bullets.max = PROJECTILE_MAX + Math.floor(score / 500);
+  Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 125) / 10;
+});
+
 scoreN.innerHTML = score;
 BulletN.innerHTML = Bullets.max;
 fireRateN.innerHTML = Bullets.rate;
