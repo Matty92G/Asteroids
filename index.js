@@ -281,15 +281,14 @@ function animate() {
                 y: asteroids[i].position.y,
               },
               velocity: {
-                x: asteroids[i].velocity.x,
-                y: asteroids[i].velocity.y,
+                x: -asteroids[i].velocity.x * (Math.random() + 1),
+                y: projectile.velocity.y / 2,
               },
               radius: Math.floor(asteroids[i].radius / 2),
             })
           );
         }
-        asteroids[i].velocity.x =
-          -asteroids[i].velocity.x * (Math.random() + 1);
+        asteroids[i].velocity.x = projectile.velocity.x / 2;
         asteroids[i].velocity.y =
           -asteroids[i].velocity.y * (Math.random() + 1);
         asteroids[i].radius -= Math.floor(asteroids[i].radius / 2);
