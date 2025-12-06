@@ -157,7 +157,7 @@ const intervalId = window.setInterval(() => {
       radius,
     })
   );
-  console.log(asteroids);
+  //console.log(asteroids);
 }, gameVar.asteroid.gameSpeed);
 
 function circleCollision(circle1, circle2) {
@@ -167,7 +167,7 @@ function circleCollision(circle1, circle2) {
     xDifference * xDifference + yDifference * yDifference
   );
   if (distance <= circle1.radius + circle2.radius) {
-    console.log('Collision');
+    //console.log('Collision');
     return true;
   }
   return false;
@@ -242,7 +242,7 @@ function animate() {
     asteroid.update();
 
     if (circleTriangleCollision(asteroid, player.getVertices())) {
-      console.log('game over');
+      //console.log('game over');
       gameOver = true;
       window.parent.postMessage(
         JSON.stringify({ asteroidsScore: score }),
@@ -267,11 +267,11 @@ function animate() {
     for (let j = projectiles.length - 1; j >= 0; j--) {
       const projectile = projectiles[j];
       if (circleCollision(asteroid, projectile)) {
-        console.log('HIT');
+        //console.log('HIT');
         projectiles.splice(j, 1);
-        console.log(asteroids[i].radius);
-        console.log(asteroids[i].position);
-        console.log(asteroids[i].velocity);
+        //console.log(asteroids[i].radius);
+        //console.log(asteroids[i].position);
+        //console.log(asteroids[i].velocity);
         score += asteroids[i].radius;
         if (asteroids[i].radius > 20) {
           asteroids.push(
@@ -432,12 +432,12 @@ window.addEventListener('touchstart', (event) => {
 });
 
 window.addEventListener('touchmove', (event) => {
-  console.log(
+  /*console.log(
     'X',
     event.changedTouches[0].clientX,
     'Y',
     event.changedTouches[0].clientY
-  );
+  );*/
 });
 
 window.addEventListener('touchend', (event) => {
