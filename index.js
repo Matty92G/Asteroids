@@ -1,10 +1,10 @@
-import { gameVar } from './src/gameVar.js';
-import { Player } from './src/Player.js';
-import { Projectile } from './src/Projectile.js';
-import { Asteroid } from './src/Asteroid.js';
+import { gameVar } from "./src/gameVar.js";
+import { Player } from "./src/Player.js";
+import { Projectile } from "./src/Projectile.js";
+import { Asteroid } from "./src/Asteroid.js";
 
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
 canvas.width = gameVar.canvasSize.width;
@@ -16,10 +16,10 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 let score = 0;
 let gameOver = false;
 
-const scoreN = document.getElementById('score-n');
-const fireRateN = document.getElementById('fire-rate-n');
-const BulletN = document.getElementById('bullet-n');
-const BulletSpeedN = document.getElementById('bullet-speed-n');
+const scoreN = document.getElementById("score-n");
+const fireRateN = document.getElementById("fire-rate-n");
+const BulletN = document.getElementById("bullet-n");
+const BulletSpeedN = document.getElementById("bullet-speed-n");
 
 // const startBtn = document.getElementById('start-btn');
 // const restartBtn = document.getElementById('restart-btn');
@@ -40,10 +40,26 @@ const BulletSpeedN = document.getElementById('bullet-speed-n');
 
 // startBtn.addEventListener('click', startGame);
 // restartBtn.addEventListener('click', restartGame);
-
+let playerColor;
+let RandomPlayerColor = Math.floor(Math.random() * 4);
+switch (RandomPlayerColor) {
+  case 0:
+    playerColor = "red";
+    break;
+  case 1:
+    playerColor = "yellow";
+    break;
+  case 2:
+    playerColor = "blue";
+    break;
+  case 3:
+    playerColor = "green";
+    break;
+}
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
+  color: playerColor,
 });
 
 const keys = {
@@ -248,7 +264,7 @@ function animate() {
         JSON.stringify({ asteroidsScore: score }),
         // 'https://arcade-game-room.netlify.app'
         // 'http://127.0.0.1:5173/'
-        '*'
+        "*"
       );
       window.cancelAnimationFrame(animationID);
       clearInterval(intervalId);
@@ -338,16 +354,33 @@ function animate() {
     if (Bullets.conter <= Bullets.max) {
       Bullets.cooldown++;
       if (Bullets.cooldown % Bullets.rate === 0) {
+        let ranColor;
+        let RandomColor = Math.floor(Math.random() * 4);
+        switch (RandomColor) {
+          case 0:
+            ranColor = "red";
+            break;
+          case 1:
+            ranColor = "yellow";
+            break;
+          case 2:
+            ranColor = "blue";
+            break;
+          case 3:
+            ranColor = "green";
+            break;
+        }
         projectiles.push(
           new Projectile({
             position: {
-              x: player.position.x + Math.cos(player.rotation) * 30,
-              y: player.position.y + Math.sin(player.rotation) * 30,
+              x: player.position.x + Math.cos(player.rotation) * 15,
+              y: player.position.y + Math.sin(player.rotation) * 15,
             },
             velocity: {
               x: Math.cos(player.rotation) * Bullets.speed,
               y: Math.sin(player.rotation) * Bullets.speed,
             },
+            color: ranColor,
           })
         );
       } else {
@@ -363,57 +396,57 @@ function animate() {
 
 animate();
 
-window.addEventListener('keydown', (event) => {
+window.addEventListener("keydown", (event) => {
   switch (event.code) {
-    case 'KeyW':
-    case 'ArrowUp':
+    case "KeyW":
+    case "ArrowUp":
       keys.fwd.pressed = true;
       break;
-    case 'KeyA':
-    case 'ArrowLeft':
+    case "KeyA":
+    case "ArrowLeft":
       keys.left.pressed = true;
       break;
-    case 'KeyD':
-    case 'ArrowRight':
+    case "KeyD":
+    case "ArrowRight":
       keys.right.pressed = true;
       break;
-    case 'KeyS':
-    case 'ArrowDown':
+    case "KeyS":
+    case "ArrowDown":
       keys.slowDown.pressed = true;
       break;
-    case 'ShiftLeft':
-    case 'ShiftRight':
+    case "ShiftLeft":
+    case "ShiftRight":
       keys.speedUp.pressed = true;
       break;
-    case 'Space':
+    case "Space":
       keys.shoot.pressed = true;
       break;
   }
 });
 
-window.addEventListener('keyup', (event) => {
+window.addEventListener("keyup", (event) => {
   switch (event.code) {
-    case 'KeyW':
-    case 'ArrowUp':
+    case "KeyW":
+    case "ArrowUp":
       keys.fwd.pressed = false;
       break;
-    case 'KeyA':
-    case 'ArrowLeft':
+    case "KeyA":
+    case "ArrowLeft":
       keys.left.pressed = false;
       break;
-    case 'KeyD':
-    case 'ArrowRight':
+    case "KeyD":
+    case "ArrowRight":
       keys.right.pressed = false;
       break;
-    case 'KeyS':
-    case 'ArrowDown':
+    case "KeyS":
+    case "ArrowDown":
       keys.slowDown.pressed = false;
       break;
-    case 'ShiftLeft':
-    case 'ShiftRight':
+    case "ShiftLeft":
+    case "ShiftRight":
       keys.speedUp.pressed = false;
       break;
-    case 'Space':
+    case "Space":
       keys.shoot.pressed = false;
       Bullets.conter = 0;
       if (Bullets.rate < 1) {
@@ -427,20 +460,20 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
-window.addEventListener('touchstart', (event) => {
+/*canvas.onmousedown = (event) => {
+  console.log("mousedown");
   keys.shoot.pressed = true;
-});
-
-window.addEventListener('touchmove', (event) => {
-  /*console.log(
-    'X',
-    event.changedTouches[0].clientX,
-    'Y',
-    event.changedTouches[0].clientY
-  );*/
-});
-
-window.addEventListener('touchend', (event) => {
+  console.log("X", event.clientX, "Y", event.clientY);
+  if (event.clientX < canvas.width / 2) {
+    // Left side
+    keys.left.pressed = true;
+  } else if (event.clientX >= canvas.width / 2) {
+    // Right side
+    keys.right.pressed = true;
+  }
+};
+canvas.onmouseup = (event) => {
+  console.log("mouseup");
   keys.shoot.pressed = false;
   Bullets.conter = 0;
   if (Bullets.rate < 1) {
@@ -450,7 +483,44 @@ window.addEventListener('touchend', (event) => {
   }
   Bullets.max = PROJECTILE_MAX + Math.floor(score / 500);
   Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 125) / 10;
-});
+  keys.left.pressed = false;
+  keys.right.pressed = false;
+};*/
+
+canvas.ontouchstart = (event) => {
+  console.log("touchstart");
+  keys.shoot.pressed = true;
+  console.log(
+    "canvas.width / 2",
+    canvas.width / 2,
+    "X",
+    event.changedTouches[0].clientX,
+    "Y",
+    event.changedTouches[0].clientY
+  );
+  if (event.changedTouches[0].clientX < canvas.width / 2) {
+    // Left side
+    keys.left.pressed = true;
+  } else if (event.changedTouches[0].clientX >= canvas.width / 2) {
+    // Right side
+    keys.right.pressed = true;
+  }
+};
+
+canvas.ontouchend = (event) => {
+  console.log("touchend");
+  keys.shoot.pressed = false;
+  Bullets.conter = 0;
+  if (Bullets.rate < 1) {
+    Bullets.rate = 1;
+  } else if (Bullets.rate > 1) {
+    Bullets.rate = PROJECTILE_RATE - Math.floor(score / 750);
+  }
+  Bullets.max = PROJECTILE_MAX + Math.floor(score / 500);
+  Bullets.speed = PROJECTILE_SPEED + Math.floor(score / 125) / 10;
+  keys.left.pressed = false;
+  keys.right.pressed = false;
+};
 
 scoreN.innerHTML = score;
 BulletN.innerHTML = Bullets.max;

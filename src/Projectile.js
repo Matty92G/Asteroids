@@ -1,12 +1,29 @@
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+    let ranColor;
+    let RandomColor = Math.floor(Math.random() * 4);
+    switch (RandomColor) {
+      case 0:
+        ranColor = "red";
+        break;
+      case 1:
+        ranColor = "yellow";
+        break;
+      case 2:
+        ranColor = "blue";
+        break;
+      case 3:
+        ranColor = "green";
+        break;
+    }
 ctx.imageSmoothingEnabled = false;
 
 export class Projectile {
-  constructor({ position, velocity }) {
+  constructor({ position, velocity, color }) {
     this.position = position;
     this.velocity = velocity;
-    this.radius = 5;
+    this.color = color;
+    this.radius = 3;
   }
 
   draw() {
@@ -20,7 +37,7 @@ export class Projectile {
       false
     );
     ctx.closePath();
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = this.color;
     ctx.fill();
   }
 
