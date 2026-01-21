@@ -487,27 +487,27 @@ canvas.onmouseup = (event) => {
   keys.right.pressed = false;
 };*/
 
-canvas.ontouchstart = (event) => {
+document.defaultView.ontouchstart = (event) => {
   console.log("touchstart");
   keys.shoot.pressed = true;
   console.log(
-    "canvas.width / 2",
-    canvas.width / 2,
+    "document.defaultView.innerWidth / 2",
+    document.defaultView.innerWidth / 2,
     "X",
     event.changedTouches[0].clientX,
     "Y",
     event.changedTouches[0].clientY
   );
-  if (event.changedTouches[0].clientX < canvas.width / 2) {
+  if (event.changedTouches[0].clientX < document.defaultView.innerWidth / 2) {
     // Left side
     keys.left.pressed = true;
-  } else if (event.changedTouches[0].clientX >= canvas.width / 2) {
+  } else if (event.changedTouches[0].clientX >= document.defaultView.innerWidth / 2) {
     // Right side
     keys.right.pressed = true;
   }
 };
 
-canvas.ontouchend = (event) => {
+document.defaultView.ontouchend = (event) => {
   console.log("touchend");
   keys.shoot.pressed = false;
   Bullets.conter = 0;
