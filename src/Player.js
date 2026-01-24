@@ -12,7 +12,7 @@ export class Player {
     this.position = position;
     this.velocity = velocity;
     this.color = color;
-    this.rotation = 0;
+    this.rotation = -Math.PI / 2;
   }
   draw() {
     ctx.save();
