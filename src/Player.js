@@ -1,7 +1,7 @@
 import { gameVar } from './gameVar.js';
 
 const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext("2d", {alpha: false});
 ctx.imageSmoothingEnabled = false;
 
 canvas.width = gameVar.canvasSize.width;

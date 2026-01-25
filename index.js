@@ -4,7 +4,7 @@ import { Projectile } from "./src/Projectile.js";
 import { Asteroid } from "./src/Asteroid.js";
 
 const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d", {alpha: false});
 ctx.imageSmoothingEnabled = false;
 
 canvas.width = gameVar.canvasSize.width;
@@ -167,8 +167,8 @@ const intervalId = window.setInterval(() => {
         y: y,
       },
       velocity: {
-        x: vx,
-        y: vy,
+        x: vx/1.5,
+        y: vy/1.5,
       },
       radius,
     })
